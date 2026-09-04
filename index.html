@@ -10,22 +10,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#1c1712;
-    --bg-2:#14100c;
-    --surface:#2a2119;
-    --surface-2:#362b1f;
-    --surface-3:#443627;
-    --border:#4a3c2c;
-    --text:#f5ead9;
-    --text-dim:#b8a892;
-    --text-faint:#7d6d5a;
-    --accent:#ff5a45;
-    --accent-dim:#c9432f;
-    --accent-glow:rgba(255,90,69,.45);
-    --gold:#ffc233;
-    --gold-dim:#c99417;
-    --teal:#35c9b0;
-    --shadow:rgba(0,0,0,.55);
+    --bg:#ffffff;
+    --bg-2:#e9f1f6;
+    --surface:#ffffff;
+    --surface-2:#eef4f8;
+    --surface-3:#dde9f0;
+    --border:#2e3338;
+    --text:#2e3338;
+    --text-dim:#5b6169;
+    --text-faint:#889097;
+    --accent:#2f8fc4;
+    --accent-dim:#1f6d99;
+    --accent-glow:rgba(47,143,196,.35);
+    --gold:#17496b;
+    --gold-dim:#0f3450;
+    --teal:#1f8fa3;
+    --shadow:rgba(46,51,56,.16);
     --font-display:'Press Start 2P','Courier New',monospace;
     --font-body:'VT323','Courier New',monospace;
   }
@@ -87,12 +87,12 @@
   .brand-badge{
     width:26px;height:26px;flex:none;
     background:var(--accent);
-    border:2px solid var(--bg-2);
+    border:2px solid var(--border);
     outline:2px solid var(--gold);
     display:flex;align-items:center;justify-content:center;
     font-family:var(--font-display);
     font-size:12px;
-    color:var(--bg-2);
+    color:var(--bg);
   }
   .brand-name{
     font-family:var(--font-display);
@@ -116,7 +116,7 @@
     line-height:1;
     white-space:nowrap;
   }
-  .ig-chip:active{background:var(--surface-3);}
+  .ig-chip.is-pressed{background:var(--surface-3);}
   .ig-dot{width:7px;height:7px;background:var(--accent);flex:none;box-shadow:0 0 6px var(--accent-glow);}
 
   .stat-row{
@@ -132,13 +132,17 @@
     color:var(--text-faint);
     text-transform:uppercase;
   }
+  .mult-badge{
+    color:var(--teal);
+    letter-spacing:0;
+  }
   .gains-value{
     font-family:var(--font-display);
     font-size:clamp(20px,6.5vw,28px);
     color:var(--gold);
     line-height:1.3;
     font-variant-numeric:tabular-nums;
-    text-shadow:0 0 10px rgba(255,194,51,.35);
+    text-shadow:0 0 10px rgba(23,73,107,.3);
   }
   .mini-stat{
     text-align:right;
@@ -166,7 +170,7 @@
     width:100%;
     background:var(--surface);
     border:3px solid var(--border);
-    box-shadow:inset 0 0 0 2px var(--bg-2), 0 8px 0 var(--bg-2);
+    box-shadow:inset 0 0 0 2px var(--border), 0 8px 0 var(--border);
     padding:22px 14px 26px;
     display:flex;
     flex-direction:column;
@@ -178,7 +182,7 @@
   .arena-plate::before{
     content:"";
     position:absolute;inset:0;
-    background:repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0 2px,transparent 2px 4px);
+    background:repeating-linear-gradient(0deg,rgba(46,51,56,.03) 0 2px,transparent 2px 4px);
     pointer-events:none;
   }
   .arena-caption{
@@ -197,7 +201,7 @@
     align-items:center;
     justify-content:center;
     touch-action:manipulation;
-    filter:drop-shadow(0 6px 0 var(--bg-2));
+    filter:drop-shadow(0 6px 0 var(--border));
     transition:transform .06s ease;
   }
   #tapBtn canvas{width:180px;height:108px;}
@@ -221,7 +225,7 @@
     font-family:var(--font-display);
     font-size:14px;
     color:var(--gold);
-    text-shadow:0 2px 0 var(--bg-2);
+    text-shadow:0 2px 0 var(--border);
     animation:floatUp .85s ease-out forwards;
     white-space:nowrap;
   }
@@ -229,6 +233,230 @@
     0%{opacity:1;transform:translate(-50%,0) scale(1);}
     100%{opacity:0;transform:translate(-50%,-46px) scale(1.05);}
   }
+  .float-num.crit{
+    color:var(--accent);
+    font-size:18px;
+    text-shadow:0 0 8px var(--accent-glow), 0 2px 0 var(--border);
+  }
+
+  /* ---------- PRESS FEEDBACK ---------- */
+  .is-pressed{filter:brightness(.9);}
+
+  /* ---------- CYCLE TOGGLE ---------- */
+  .cycle-section{
+    padding:0 16px 8px;
+  }
+  .cycle-toggle{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:var(--surface);
+    border:2px solid var(--border);
+    padding:9px 12px;
+    cursor:pointer;
+    box-shadow:0 3px 0 var(--border);
+    text-align:left;
+  }
+  .cycle-toggle.is-pressed{transform:translateY(3px);box-shadow:none;}
+  .cycle-toggle-icon{
+    width:32px;height:32px;flex:none;
+    background:var(--surface-2);
+    border:2px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .cycle-toggle-icon canvas{width:22px;height:22px;}
+  .cycle-toggle-text{
+    flex:1;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  .cycle-toggle-title{
+    font-family:var(--font-display);
+    font-size:11px;
+    letter-spacing:.5px;
+    color:var(--teal);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .cycle-toggle-sub{
+    font-size:14px;
+    color:var(--text-dim);
+  }
+  .cycle-toggle-chevron{
+    flex:none;
+    font-size:16px;
+    color:var(--text-faint);
+    transition:transform .2s ease;
+  }
+  .cycle-toggle[aria-expanded="true"] .cycle-toggle-chevron{transform:rotate(90deg);}
+  .cycle-panel{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-top:10px;
+  }
+  .cycle-panel[hidden]{display:none;}
+
+  /* ---------- PRESTIGE ---------- */
+  .prestige-card{
+    background:var(--surface);
+    border:3px solid var(--teal);
+    box-shadow:inset 0 0 0 2px var(--border), 0 6px 0 var(--border);
+    padding:14px 14px 16px;
+  }
+  .prestige-sub{
+    font-size:14px;
+    color:var(--text-faint);
+    margin-top:10px;
+    margin-bottom:12px;
+    line-height:1.3;
+    text-align:center;
+  }
+  .prestige-stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-bottom:12px;
+  }
+  .prestige-stat{
+    background:var(--surface-2);
+    border:2px solid var(--border);
+    padding:7px 6px;
+    text-align:center;
+  }
+  .prestige-stat span{
+    display:block;
+    font-size:12px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:var(--text-faint);
+  }
+  .prestige-stat b{
+    display:block;
+    font-family:var(--font-display);
+    font-size:13px;
+    color:var(--gold);
+    margin-top:4px;
+    font-variant-numeric:tabular-nums;
+  }
+  .prestige-progress{
+    height:10px;
+    background:var(--surface-2);
+    border:2px solid var(--border);
+    margin-bottom:6px;
+    overflow:hidden;
+  }
+  .prestige-progress-bar{
+    height:100%;
+    width:0%;
+    background:var(--teal);
+    transition:width .3s ease;
+  }
+  .prestige-progress-label{
+    font-size:13px;
+    color:var(--text-faint);
+    margin-bottom:10px;
+    text-align:center;
+  }
+  .prestige-btn{
+    width:100%;
+    border:2px solid var(--border);
+    background:var(--teal);
+    color:var(--bg);
+    font-family:var(--font-display);
+    font-size:12px;
+    padding:12px;
+    box-shadow:0 4px 0 #145f70;
+    cursor:pointer;
+  }
+  .prestige-btn.is-pressed:not(:disabled){transform:translateY(3px);box-shadow:none;}
+  .prestige-btn:disabled{
+    background:var(--surface-3);
+    color:var(--text-faint);
+    box-shadow:none;
+    cursor:default;
+  }
+
+  /* ---------- PERK TREE ---------- */
+  .perk-tree-section{
+    background:var(--surface);
+    border:3px solid var(--border);
+    padding:12px 12px 14px;
+  }
+  .perk-tree-hint{
+    font-size:13px;
+    color:var(--text-faint);
+    line-height:1.3;
+    margin:-4px 0 10px;
+  }
+  .perk-tree{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(148px,1fr));
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:2px;
+  }
+  .perk-branch{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    min-width:0;
+  }
+  .perk-branch-label{
+    font-size:12px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:var(--teal);
+    text-align:center;
+    margin-bottom:2px;
+  }
+  .perk-node{
+    background:var(--bg);
+    border:2px solid var(--border);
+    padding:8px 6px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:4px;
+    box-shadow:0 3px 0 var(--border);
+    font-family:inherit;
+    width:100%;
+  }
+  .perk-node.is-pressed{transform:translateY(3px);box-shadow:none;}
+  .perk-node-icon{
+    width:30px;height:30px;
+    background:var(--surface-2);
+    border:2px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .perk-node-icon canvas{width:22px;height:22px;}
+  .perk-node-name{font-size:13px;color:var(--text);line-height:1.15;}
+  .perk-node-desc{font-size:11px;color:var(--text-dim);line-height:1.2;}
+  .perk-node-status{
+    font-size:10px;
+    letter-spacing:.5px;
+    padding:2px 5px;
+    color:var(--text-faint);
+    background:var(--surface-2);
+    border:1px solid var(--border);
+  }
+  .perk-node.locked{opacity:.4;cursor:default;}
+  .perk-node.unaffordable{opacity:.65;cursor:default;}
+  .perk-node.unaffordable .perk-node-status{color:var(--gold);}
+  .perk-node.buyable{
+    border-color:var(--accent);
+    box-shadow:0 3px 0 var(--border), 0 0 10px var(--accent-glow);
+    cursor:pointer;
+  }
+  .perk-node.buyable .perk-node-status{color:var(--bg);background:var(--accent);border-color:var(--accent);}
+  .perk-node.owned{cursor:default;}
+  .perk-node.owned .perk-node-icon{border-color:var(--teal);}
+  .perk-node.owned .perk-node-status{color:var(--teal);border-color:var(--teal);background:var(--surface-3);}
 
   /* ---------- SHOP ---------- */
   .shop{
@@ -274,10 +502,10 @@
     border:2px solid var(--border);
     padding:10px;
     text-align:left;
-    box-shadow:0 4px 0 var(--bg-2);
+    box-shadow:0 4px 0 var(--border);
     transition:opacity .15s ease, transform .1s ease;
   }
-  .upgrade-card:active:not(.disabled){transform:translateY(2px);box-shadow:0 2px 0 var(--bg-2);}
+  .upgrade-card.is-pressed:not(.disabled){transform:translateY(2px);box-shadow:0 2px 0 var(--border);}
   .upgrade-card.disabled{opacity:.45;}
   .upgrade-icon{
     width:52px;height:52px;
@@ -343,20 +571,20 @@
     align-items:center;
     gap:8px;
     background:var(--accent);
-    color:var(--bg-2);
+    color:var(--bg);
     text-decoration:none;
     font-family:var(--font-display);
     font-size:12px;
     padding:12px 18px;
-    border:2px solid var(--bg-2);
+    border:2px solid var(--border);
     box-shadow:0 4px 0 var(--accent-dim);
   }
-  .ig-follow:active{transform:translateY(3px);box-shadow:none;}
+  .ig-follow.is-pressed{transform:translateY(3px);box-shadow:none;}
 
   /* ---------- MODAL ---------- */
   .overlay{
     position:fixed;inset:0;
-    background:rgba(10,7,4,.82);
+    background:rgba(20,28,34,.68);
     display:flex;align-items:center;justify-content:center;
     padding:20px;
     z-index:60;
@@ -369,7 +597,7 @@
     width:100%;max-width:380px;
     background:var(--surface);
     border:3px solid var(--gold);
-    box-shadow:0 0 0 6px var(--bg-2), 0 0 40px rgba(255,194,51,.25);
+    box-shadow:0 0 0 6px var(--border), 0 0 40px rgba(47,143,196,.22);
     padding:22px 20px 20px;
     text-align:center;
     transform:scale(.9);
@@ -400,15 +628,17 @@
   .modal-cta{
     display:flex;align-items:center;justify-content:center;gap:8px;
     background:var(--accent);
-    color:var(--bg-2);
+    color:var(--bg);
     text-decoration:none;
     font-family:var(--font-display);
     font-size:12px;
     padding:13px;
-    border:2px solid var(--bg-2);
+    border:2px solid var(--border);
     box-shadow:0 4px 0 var(--accent-dim);
+    cursor:pointer;
+    width:100%;
   }
-  .modal-cta:active{transform:translateY(3px);box-shadow:none;}
+  .modal-cta.is-pressed{transform:translateY(3px);box-shadow:none;}
   .modal-dismiss{
     background:none;
     border:2px solid var(--border);
@@ -417,6 +647,7 @@
     padding:10px;
     cursor:pointer;
   }
+  .modal-dismiss.is-pressed{background:var(--surface-2);}
 
   /* ---------- TOAST ---------- */
   .toast{
@@ -438,7 +669,7 @@
 
   @media (prefers-reduced-motion:reduce){
     .float-num{animation:none;opacity:0;}
-    #tapBtn,#tapBtn.squash,.upgrade-card:active,.modal-cta:active,.ig-follow:active{transform:none;}
+    #tapBtn,#tapBtn.squash,.is-pressed{transform:none;}
     .overlay,.modal,.toast{transition:none;}
   }
 </style>
@@ -458,7 +689,7 @@
     </div>
     <div class="stat-row">
       <div class="gains-block">
-        <div class="gains-label">Gains</div>
+        <div class="gains-label">Gains <span class="mult-badge" id="multBadge"></span></div>
         <div class="gains-value" id="gainsValue">0</div>
       </div>
       <div class="mini-stat">Na sekundę<b id="perSecondValue">0</b></div>
@@ -477,6 +708,39 @@
         <div class="click-power">+<b id="clickPowerLabel">1</b> gains / klik</div>
       </div>
     </div>
+
+    <section class="cycle-section">
+      <button class="cycle-toggle" id="cycleToggle" type="button" aria-expanded="false">
+        <span class="cycle-toggle-icon"><canvas id="medalCanvas" width="16" height="16"></canvas></span>
+        <span class="cycle-toggle-text">
+          <span class="cycle-toggle-title">CYKL TRENINGOWY I ROZWÓJ</span>
+          <span class="cycle-toggle-sub" id="cycleToggleSub">0 PF · mnożnik +0%</span>
+        </span>
+        <span class="cycle-toggle-chevron" id="cycleChevron">▸</span>
+      </button>
+
+      <div class="cycle-panel" id="cyclePanel" hidden>
+        <div class="prestige-card" id="prestigeCard">
+          <div class="prestige-stats">
+            <div class="prestige-stat"><span>Punkty Formy</span><b id="prestigePoints">0</b></div>
+            <div class="prestige-stat"><span>Mnożnik</span><b id="prestigeMult">+0%</b></div>
+            <div class="prestige-stat"><span>Cykli</span><b id="prestigeCycles">0</b></div>
+          </div>
+          <div class="prestige-progress" id="prestigeProgressWrap">
+            <div class="prestige-progress-bar" id="prestigeProgressBar"></div>
+          </div>
+          <div class="prestige-progress-label" id="prestigeProgressLabel">0 / 10 000 gains</div>
+          <div class="prestige-sub" id="prestigeSub">Zbierz gains, by odblokować reset z trwałym bonusem</div>
+          <button class="prestige-btn" id="prestigeBtn" disabled>ZABLOKOWANE</button>
+        </div>
+
+        <div class="perk-tree-section">
+          <div class="section-label">Drzewko rozwoju</div>
+          <div class="perk-tree-hint">Kupuj perki za Punkty Formy — wydane punkty obniżają mnożnik, ale odblokowane perki zostają na zawsze.</div>
+          <div class="perk-tree" id="perkTree"></div>
+        </div>
+      </div>
+    </section>
 
     <section class="shop">
       <div class="shop-head">
@@ -510,6 +774,18 @@
   </div>
 </div>
 
+<div class="overlay" id="prestigeOverlay">
+  <div class="modal">
+    <div class="modal-eyebrow">NOWY CYKL TRENINGOWY</div>
+    <div class="modal-title">ZRESETOWAĆ POSTĘP?</div>
+    <div class="modal-body" id="prestigeConfirmBody"></div>
+    <div class="modal-actions">
+      <button class="modal-cta" id="prestigeConfirmBtn">TAK, ZACZYNAM NOWY CYKL</button>
+      <button class="modal-dismiss" id="prestigeCancelBtn">Zostaję przy obecnym</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -518,8 +794,8 @@
 
   /* ---------------- Pixel icon renderer ---------------- */
   var PALETTE = {
-    O:'#140f0a', S:'#9aa1ab', D:'#63697a', R:'#ff5a45',
-    G:'#ffc233', C:'#f5ead9', T:'#35c9b0'
+    O:'#2e3338', S:'#9aa1ab', D:'#63697a', R:'#2f8fc4',
+    G:'#17496b', C:'#f7fafc', T:'#1f8fa3'
   };
   function drawIcon(canvas, rects){
     var ctx = canvas.getContext('2d');
@@ -592,25 +868,121 @@
       [3,3,10,5,'T'],
       [3,9,2,2,'G'], [7,9,2,2,'G'], [11,9,2,2,'G'],
       [3,12,2,2,'R'], [7,12,2,2,'R'], [11,12,2,2,'R']
+    ],
+    medal: [
+      [4,10,3,5,'O'], [5,11,1,4,'R'],
+      [9,10,3,5,'O'], [10,11,1,4,'R'],
+      [3,1,10,10,'O'], [4,2,8,8,'G'],
+      [6,4,4,4,'C']
+    ],
+    bands: [
+      [2,1,12,3,'T'], [2,12,12,3,'T'],
+      [2,1,3,14,'T'], [11,1,3,14,'T'],
+      [3,2,2,2,'C']
+    ],
+    preworkout: [
+      [4,2,8,12,'O'], [5,3,6,10,'R'],
+      [5,3,6,2,'G'], [6,7,4,1,'C']
+    ],
+    bike: [
+      [2,10,6,5,'O'], [3,11,4,3,'S'],
+      [10,2,4,6,'O'], [11,3,2,4,'T'],
+      [6,3,4,2,'D'],
+      [6,5,6,2,'O'], [7,6,4,1,'S']
+    ],
+    cardiozone: [
+      [5,1,6,2,'O'], [6,3,4,1,'S'],
+      [3,4,10,10,'O'], [4,5,8,8,'T'],
+      [7,6,1,4,'C'], [7,9,3,1,'C']
+    ],
+    studio2: [
+      [1,5,14,10,'O'], [2,6,12,8,'D'],
+      [1,3,14,2,'R'],
+      [3,7,2,2,'T'], [7,7,2,2,'T'], [11,7,2,2,'T'],
+      [6,10,4,5,'O'], [7,11,2,4,'C']
+    ],
+    bolt: [
+      [8,1,4,4,'G'], [5,5,5,3,'G'],
+      [9,7,4,3,'G'], [6,9,5,6,'G']
+    ],
+    starburst: [
+      [6,6,4,4,'G'],
+      [7,1,2,4,'R'], [7,11,2,4,'R'],
+      [1,7,4,2,'R'], [11,7,4,2,'R'],
+      [3,3,3,3,'R'], [10,10,3,3,'R'],
+      [3,10,3,3,'R'], [10,3,3,3,'R']
+    ],
+    wind: [
+      [3,3,10,2,'T'], [3,3,2,6,'T'],
+      [3,9,8,2,'T'], [9,7,4,2,'T'], [7,5,4,2,'T']
+    ],
+    heart: [
+      [3,3,4,3,'R'], [9,3,4,3,'R'],
+      [2,5,12,4,'R'], [3,9,10,2,'R'],
+      [5,11,6,2,'R'], [7,13,2,2,'R']
+    ],
+    percent: [
+      [2,2,4,4,'G'], [10,10,4,4,'G'],
+      [10,2,2,2,'G'], [8,4,2,2,'G'],
+      [6,6,2,2,'G'], [4,8,2,2,'G'], [2,10,2,2,'G']
+    ],
+    flag: [
+      [3,1,2,14,'O'], [5,2,8,6,'R']
     ]
   };
 
   /* ---------------- Upgrade config ---------------- */
   var CLICK_UPGRADES = [
-    { id:'gloves',    name:'Rękawiczki treningowe', desc:'Lepszy chwyt, mocniejszy klik.',        icon:'gloves',    baseCost:15,     power:1   },
-    { id:'shaker',    name:'Proteinowy shake',       desc:'Szybsza regeneracja między seriami.',   icon:'shaker',    baseCost:100,    power:5   },
-    { id:'squatrack', name:'Klatka do przysiadów',   desc:'Trenujesz nogi jak zawodowiec.',        icon:'squatrack', baseCost:1100,   power:25  },
-    { id:'vipcard',   name:'Karnet VIP Forma Czeladź', desc:'Pełny dostęp do sprzętu klubowego.',  icon:'vipcard',   baseCost:12000,  power:150 }
+    { id:'gloves',     name:'Rękawiczki treningowe',      desc:'Lepszy chwyt, mocniejszy klik.',        icon:'gloves',     baseCost:15,     power:1   },
+    { id:'shaker',     name:'Proteinowy shake',           desc:'Szybsza regeneracja między seriami.',   icon:'shaker',     baseCost:100,    power:5   },
+    { id:'bands',      name:'Taśmy oporowe',              desc:'Dokładasz opór do każdego ruchu.',       icon:'bands',      baseCost:350,    power:12  },
+    { id:'squatrack',  name:'Klatka do przysiadów',       desc:'Trenujesz nogi jak zawodowiec.',        icon:'squatrack',  baseCost:1100,   power:25  },
+    { id:'vipcard',    name:'Karnet VIP Forma Czeladź',   desc:'Pełny dostęp do sprzętu klubowego.',    icon:'vipcard',    baseCost:12000,  power:150 },
+    { id:'preworkout', name:'Suplement przedtreningowy',  desc:'Energia na maksymalny wysiłek.',        icon:'preworkout', baseCost:60000,  power:700 }
   ];
   var AUTO_UPGRADES = [
-    { id:'treadmill', name:'Bieżnia',              desc:'Pali kalorie, gdy Cię nie ma.',      icon:'treadmill', baseCost:50,      power:1   },
-    { id:'bench',     name:'Ławka do wyciskania',  desc:'Klub trenuje za Ciebie 24/7.',      icon:'bench',     baseCost:400,     power:8   },
-    { id:'trainer',   name:'Trener personalny',    desc:'Układa Ci plan i pilnuje formy.',   icon:'trainer',   baseCost:6500,    power:47  },
-    { id:'sauna',     name:'Sauna',                desc:'Regeneracja produkuje pasywne gains.', icon:'sauna',  baseCost:90000,   power:260 },
-    { id:'vending',   name:'Automat z odżywkami',  desc:'Non-stop dostawa energii dla klubu.', icon:'vending', baseCost:1200000, power:1400 }
+    { id:'treadmill',  name:'Bieżnia',                 desc:'Pali kalorie, gdy Cię nie ma.',       icon:'treadmill',  baseCost:50,       power:1    },
+    { id:'bike',       name:'Rower stacjonarny',       desc:'Cardio kręci się bez Twojego udziału.', icon:'bike',     baseCost:150,      power:4    },
+    { id:'bench',      name:'Ławka do wyciskania',     desc:'Klub trenuje za Ciebie 24/7.',        icon:'bench',      baseCost:400,      power:8    },
+    { id:'trainer',    name:'Trener personalny',       desc:'Układa Ci plan i pilnuje formy.',     icon:'trainer',    baseCost:6500,     power:47   },
+    { id:'cardiozone', name:'Strefa cardio',           desc:'Cały rząd maszyn pracuje non-stop.',  icon:'cardiozone', baseCost:25000,    power:120  },
+    { id:'sauna',      name:'Sauna',                   desc:'Regeneracja produkuje pasywne gains.', icon:'sauna',     baseCost:90000,    power:260  },
+    { id:'vending',    name:'Automat z odżywkami',     desc:'Non-stop dostawa energii dla klubu.', icon:'vending',    baseCost:1200000,  power:1400 },
+    { id:'studio2',    name:'Forma Czeladź 2.0',       desc:'Druga siłownia pracuje na Twój koncie.', icon:'studio2', baseCost:15000000, power:9000 }
   ];
   var ALL_UPGRADES = CLICK_UPGRADES.concat(AUTO_UPGRADES);
   var GROWTH = 1.15;
+
+  /* ---------------- Prestige config ----------------
+     Po zebraniu PRESTIGE_UNLOCK gains w bieżącym cyklu można
+     zresetować sprzęt i gains w zamian za trwały mnożnik. */
+  var PRESTIGE_UNLOCK = 10000;
+  var PRESTIGE_DIVISOR = 10000;
+  var PRESTIGE_EXPONENT = 0.5;
+  var PRESTIGE_BONUS_PER_POINT = 0.02;
+
+  /* ---------------- Perk tree ----------------
+     Każdy branch jest liniowy: węzeł można kupić za Punkty Formy dopiero
+     gdy poprzedni węzeł w tym samym branchu jest już wykupiony. Wydane
+     punkty odejmują się z salda, więc obniżają bieżący mnożnik gains. */
+  var PERK_TREE = {
+    strength: { label:'SIŁA', nodes:[
+      { id:'s1', name:'Twardy uchwyt',      desc:'+15% do gains na klik',            icon:'bolt',      cost:3  },
+      { id:'s2', name:'Wybuchowa moc',      desc:'+25% do gains na klik',            icon:'bolt',      cost:8  },
+      { id:'s3', name:'Furia treningowa',   desc:'10% szans na potrójny klik',       icon:'starburst', cost:20 }
+    ]},
+    endurance: { label:'WYTRZYMAŁOŚĆ', nodes:[
+      { id:'e1', name:'Głęboki oddech',     desc:'+15% do gains pasywnych',          icon:'wind',  cost:3  },
+      { id:'e2', name:'Drugi wiatr',        desc:'+25% do gains pasywnych',          icon:'wind',  cost:8  },
+      { id:'e3', name:'Tryb regeneracji',   desc:'+50% zarobków offline',            icon:'heart', cost:20 }
+    ]},
+    economy: { label:'EKONOMIA', nodes:[
+      { id:'b1', name:'Znajomość w klubie', desc:'-8% ceny sprzętu',                 icon:'percent', cost:3  },
+      { id:'b2', name:'Rabat VIP',          desc:'-8% ceny sprzętu (łącznie -16%)',  icon:'percent', cost:8  },
+      { id:'b3', name:'Start Mistrza',      desc:'Start z 5 rękawiczkami gratis',    icon:'flag',    cost:20 }
+    ]}
+  };
+  var PERK_BRANCH_KEYS = Object.keys(PERK_TREE);
 
   var MILESTONES = [
     { at:100,     eyebrow:'PIERWSZY SET',      title:'ROZGRZANE MIĘŚNIE!', body:'100 gains zaliczone. Tak trzymaj — prawdziwa siłownia czeka w Forma Czeladź.' },
@@ -627,6 +999,9 @@
     totalEarned: 0,
     owned: {},
     milestonesShown: [],
+    prestigePoints: 0,
+    prestigeCount: 0,
+    perks: [],
     lastSave: Date.now()
   };
   ALL_UPGRADES.forEach(function(u){ state.owned[u.id] = 0; });
@@ -639,6 +1014,9 @@
       state.gains = saved.gains || 0;
       state.totalEarned = saved.totalEarned || 0;
       state.milestonesShown = saved.milestonesShown || [];
+      state.prestigePoints = saved.prestigePoints || 0;
+      state.prestigeCount = saved.prestigeCount || 0;
+      state.perks = saved.perks || [];
       state.lastSave = saved.lastSave || Date.now();
       if (saved.owned) {
         ALL_UPGRADES.forEach(function(u){ state.owned[u.id] = saved.owned[u.id] || 0; });
@@ -652,18 +1030,52 @@
     } catch(e){ /* storage unavailable, ignore */ }
   }
 
+  function hasPerk(id){ return state.perks.indexOf(id) !== -1; }
+  function perkClickMult(){
+    var m = 1;
+    if (hasPerk('s1')) m += 0.15;
+    if (hasPerk('s2')) m += 0.25;
+    return m;
+  }
+  function perkPassiveMult(){
+    var m = 1;
+    if (hasPerk('e1')) m += 0.15;
+    if (hasPerk('e2')) m += 0.25;
+    return m;
+  }
+  function perkCostMult(){
+    var m = 1;
+    if (hasPerk('b1')) m -= 0.08;
+    if (hasPerk('b2')) m -= 0.08;
+    return m;
+  }
+  function perkOfflineMult(){
+    return hasPerk('e3') ? 1.5 : 1;
+  }
+
   function upgradeCost(u){
-    return Math.ceil(u.baseCost * Math.pow(GROWTH, state.owned[u.id]));
+    return Math.ceil(u.baseCost * Math.pow(GROWTH, state.owned[u.id]) * perkCostMult());
+  }
+  function prestigeMultiplier(){
+    return 1 + state.prestigePoints * PRESTIGE_BONUS_PER_POINT;
   }
   function perClick(){
     var total = 1;
     CLICK_UPGRADES.forEach(function(u){ total += u.power * state.owned[u.id]; });
-    return total;
+    return total * prestigeMultiplier() * perkClickMult();
   }
   function perSecond(){
     var total = 0;
     AUTO_UPGRADES.forEach(function(u){ total += u.power * state.owned[u.id]; });
-    return total;
+    return total * prestigeMultiplier() * perkPassiveMult();
+  }
+  function calcPrestigeGain(){
+    if (state.totalEarned < PRESTIGE_UNLOCK) return 0;
+    return Math.floor(Math.pow(state.totalEarned / PRESTIGE_DIVISOR, PRESTIGE_EXPONENT));
+  }
+  function perkPrereqMet(branchKey, index){
+    if (index === 0) return true;
+    return hasPerk(PERK_TREE[branchKey].nodes[index - 1].id);
   }
 
   function formatNumber(n){
@@ -693,6 +1105,7 @@
   var milestoneDismiss = document.getElementById('milestoneDismiss');
 
   drawIcon(document.getElementById('dumbbellCanvas'), ICONS.dumbbell);
+  drawIcon(document.getElementById('medalCanvas'), ICONS.medal);
 
   /* ---------------- Build shop ---------------- */
   var cardEls = {};
@@ -737,21 +1150,184 @@
   }
 
   /* ---------------- HUD ---------------- */
+  var multBadgeEl = document.getElementById('multBadge');
   function refreshHud(){
     gainsValueEl.textContent = formatNumber(state.gains);
     perSecondValueEl.textContent = formatNumber(perSecond());
     var pc = perClick();
     perClickValueEl.textContent = formatNumber(pc);
     clickPowerLabelEl.textContent = formatNumber(pc);
+    var mult = prestigeMultiplier();
+    multBadgeEl.textContent = mult > 1 ? ('×' + mult.toFixed(2)) : '';
+  }
+
+  /* ---------------- Prestige ---------------- */
+  var prestigePointsEl = document.getElementById('prestigePoints');
+  var prestigeMultEl = document.getElementById('prestigeMult');
+  var prestigeCyclesEl = document.getElementById('prestigeCycles');
+  var prestigeProgressWrap = document.getElementById('prestigeProgressWrap');
+  var prestigeProgressBar = document.getElementById('prestigeProgressBar');
+  var prestigeProgressLabel = document.getElementById('prestigeProgressLabel');
+  var prestigeBtn = document.getElementById('prestigeBtn');
+  var prestigeSub = document.getElementById('prestigeSub');
+  var prestigeOverlay = document.getElementById('prestigeOverlay');
+  var prestigeConfirmBody = document.getElementById('prestigeConfirmBody');
+  var prestigeConfirmBtn = document.getElementById('prestigeConfirmBtn');
+  var prestigeCancelBtn = document.getElementById('prestigeCancelBtn');
+
+  function refreshPrestigePanel(){
+    prestigePointsEl.textContent = formatNumber(state.prestigePoints);
+    prestigeMultEl.textContent = '+' + Math.round((prestigeMultiplier() - 1) * 100) + '%';
+    prestigeCyclesEl.textContent = state.prestigeCount;
+    cycleToggleSub.textContent = formatNumber(state.prestigePoints) + ' PF · mnożnik +' + Math.round((prestigeMultiplier() - 1) * 100) + '%';
+
+    var gain = calcPrestigeGain();
+
+    if (state.totalEarned < PRESTIGE_UNLOCK) {
+      var pct = Math.min(100, (state.totalEarned / PRESTIGE_UNLOCK) * 100);
+      prestigeProgressWrap.style.display = '';
+      prestigeProgressBar.style.width = pct + '%';
+      prestigeProgressLabel.style.display = '';
+      prestigeProgressLabel.textContent = formatNumber(state.totalEarned) + ' / ' + formatNumber(PRESTIGE_UNLOCK) + ' gains do odblokowania';
+      prestigeBtn.disabled = true;
+      prestigeBtn.textContent = 'ZABLOKOWANE';
+      prestigeSub.textContent = 'Zbierz gains, by odblokować reset z trwałym bonusem';
+    } else {
+      prestigeProgressWrap.style.display = 'none';
+      prestigeProgressLabel.style.display = 'none';
+      if (gain > 0) {
+        prestigeBtn.disabled = false;
+        prestigeBtn.textContent = 'NOWY CYKL: +' + gain + ' PF';
+        prestigeSub.textContent = 'Reset zeruje sprzęt i gains — mnożnik zostaje na zawsze';
+      } else {
+        prestigeBtn.disabled = true;
+        prestigeBtn.textContent = 'BRAK NOWYCH PUNKTÓW';
+        prestigeSub.textContent = 'Zarób więcej gains, zanim znów zaczniesz nowy cykl';
+      }
+    }
+  }
+
+  /* ---------------- Cycle toggle ---------------- */
+  var cycleToggle = document.getElementById('cycleToggle');
+  var cyclePanel = document.getElementById('cyclePanel');
+  var cycleToggleSub = document.getElementById('cycleToggleSub');
+  cycleToggle.addEventListener('click', function(){
+    cyclePanel.hidden = !cyclePanel.hidden;
+    cycleToggle.setAttribute('aria-expanded', cyclePanel.hidden ? 'false' : 'true');
+  });
+
+  /* ---------------- Perk tree UI (kupowane za Punkty Formy) ---------------- */
+  var perkTreeEl = document.getElementById('perkTree');
+  var perkNodeEls = {};
+  function buildPerkTree(){
+    PERK_BRANCH_KEYS.forEach(function(key){
+      var branch = PERK_TREE[key];
+      var col = document.createElement('div');
+      col.className = 'perk-branch';
+      var head = document.createElement('div');
+      head.className = 'perk-branch-label';
+      head.textContent = branch.label;
+      col.appendChild(head);
+      branch.nodes.forEach(function(node, index){
+        var card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'perk-node';
+        card.innerHTML =
+          '<div class="perk-node-icon"><canvas width="16" height="16"></canvas></div>' +
+          '<div class="perk-node-name">' + node.name + '</div>' +
+          '<div class="perk-node-desc">' + node.desc + '</div>' +
+          '<div class="perk-node-status" data-role="status">ZABLOKOWANY</div>';
+        drawIcon(card.querySelector('canvas'), ICONS[node.icon]);
+        card.addEventListener('click', function(){ buyPerk(key, index); });
+        col.appendChild(card);
+        perkNodeEls[node.id] = card;
+      });
+      perkTreeEl.appendChild(col);
+    });
+  }
+  function refreshPerkTree(){
+    PERK_BRANCH_KEYS.forEach(function(key){
+      var nodes = PERK_TREE[key].nodes;
+      nodes.forEach(function(node, index){
+        var card = perkNodeEls[node.id];
+        var status = card.querySelector('[data-role="status"]');
+        card.classList.remove('owned','buyable','unaffordable','locked');
+        if (hasPerk(node.id)) {
+          card.classList.add('owned');
+          card.disabled = true;
+          status.textContent = 'ZDOBYTY';
+        } else if (!perkPrereqMet(key, index)) {
+          card.classList.add('locked');
+          card.disabled = true;
+          status.textContent = 'WYMAGA POPRZEDNIEGO';
+        } else if (state.prestigePoints >= node.cost) {
+          card.classList.add('buyable');
+          card.disabled = false;
+          status.textContent = 'KUP ZA ' + node.cost + ' PF';
+        } else {
+          card.classList.add('unaffordable');
+          card.disabled = true;
+          status.textContent = node.cost + ' PF (za mało)';
+        }
+      });
+    });
+  }
+  buildPerkTree();
+
+  function buyPerk(branchKey, index){
+    var node = PERK_TREE[branchKey].nodes[index];
+    if (hasPerk(node.id)) return;
+    if (!perkPrereqMet(branchKey, index)) return;
+    if (state.prestigePoints < node.cost) return;
+    state.prestigePoints -= node.cost;
+    state.perks.push(node.id);
+    save();
+    refreshPerkTree();
+    refreshHud();
+    refreshShop();
+    refreshPrestigePanel();
+    showToast('Kupiono: ' + node.name + '! Mnożnik: +' + Math.round((prestigeMultiplier() - 1) * 100) + '%');
+  }
+
+  prestigeBtn.addEventListener('click', function(){
+    var gain = calcPrestigeGain();
+    if (gain <= 0) return;
+    var newMultPct = Math.round(((1 + (state.prestigePoints + gain) * PRESTIGE_BONUS_PER_POINT) - 1) * 100);
+    prestigeConfirmBody.textContent = 'Otrzymasz +' + gain + ' Punktów Formy (nowy mnożnik: +' + newMultPct + '%). Gains i cały sprzęt w tym cyklu wyzerują się. Kamienie milowe i Punkty Formy zostają na zawsze.';
+    prestigeOverlay.classList.add('show');
+  });
+  prestigeCancelBtn.addEventListener('click', function(){
+    prestigeOverlay.classList.remove('show');
+  });
+  prestigeConfirmBtn.addEventListener('click', function(){
+    doPrestige();
+    prestigeOverlay.classList.remove('show');
+  });
+
+  function doPrestige(){
+    var gain = calcPrestigeGain();
+    if (gain <= 0) return;
+    state.prestigePoints += gain;
+    state.prestigeCount += 1;
+    state.gains = 0;
+    state.totalEarned = 0;
+    ALL_UPGRADES.forEach(function(u){ state.owned[u.id] = 0; });
+    if (hasPerk('b3')) { state.owned.gloves = 5; }
+    save();
+    refreshHud();
+    refreshShop();
+    refreshPrestigePanel();
+    refreshPerkTree();
+    showToast('Nowy cykl treningowy! +' + gain + ' Punktów Formy (saldo: ' + formatNumber(state.prestigePoints) + ', mnożnik: +' + Math.round((prestigeMultiplier() - 1) * 100) + '%)');
   }
 
   /* ---------------- Clicking ---------------- */
   var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function spawnFloat(amount, x, y){
+  function spawnFloat(amount, x, y, isCrit){
     var el = document.createElement('div');
-    el.className = 'float-num';
-    el.textContent = '+' + formatNumber(amount);
+    el.className = isCrit ? 'float-num crit' : 'float-num';
+    el.textContent = (isCrit ? 'KRYT! +' : '+') + formatNumber(amount);
     el.style.left = x + 'px';
     el.style.top = y + 'px';
     floatLayer.appendChild(el);
@@ -760,13 +1336,15 @@
 
   tapBtn.addEventListener('click', function(e){
     var gained = perClick();
+    var isCrit = hasPerk('s3') && Math.random() < 0.10;
+    if (isCrit) gained *= 3;
     state.gains += gained;
     state.totalEarned += gained;
 
     var rect = tapBtn.getBoundingClientRect();
     var x = (e.clientX ? e.clientX - rect.left : rect.width/2) + (Math.random()*30-15);
     var y = (e.clientY ? e.clientY - rect.top : rect.height/2);
-    if (!reducedMotion) spawnFloat(gained, x, y);
+    if (!reducedMotion) spawnFloat(gained, x, y, isCrit);
 
     if (!reducedMotion) {
       tapBtn.classList.add('squash');
@@ -775,6 +1353,7 @@
 
     refreshHud();
     refreshShop();
+    refreshPrestigePanel();
     checkMilestones();
   }, { passive:true });
 
@@ -806,6 +1385,19 @@
     }, 220);
   });
 
+  /* ---------------- Press feedback ---------------- */
+  var PRESS_SELECTOR = '.upgrade-card, .prestige-btn, .ig-chip, .ig-follow, .modal-cta, .modal-dismiss, .cycle-toggle, .perk-node';
+  document.addEventListener('pointerdown', function(e){
+    var el = e.target.closest(PRESS_SELECTOR);
+    if (el && !el.disabled) el.classList.add('is-pressed');
+  });
+  function releasePress(){
+    document.querySelectorAll('.is-pressed').forEach(function(el){ el.classList.remove('is-pressed'); });
+  }
+  document.addEventListener('pointerup', releasePress);
+  document.addEventListener('pointercancel', releasePress);
+  document.addEventListener('pointerleave', releasePress, true);
+
   /* ---------------- Toast ---------------- */
   var toastTimer = null;
   function showToast(msg){
@@ -832,6 +1424,8 @@
 
   setInterval(function(){
     refreshShop();
+    refreshPrestigePanel();
+    refreshPerkTree();
     checkMilestones();
   }, 400);
 
@@ -846,7 +1440,7 @@
   var CAP_SECONDS = 4 * 3600;
   if (offlineSeconds > 15) {
     var capped = Math.min(offlineSeconds, CAP_SECONDS);
-    var earned = perSecond() * capped;
+    var earned = perSecond() * capped * perkOfflineMult();
     if (earned > 0) {
       state.gains += earned;
       state.totalEarned += earned;
@@ -856,6 +1450,8 @@
 
   refreshHud();
   refreshShop();
+  refreshPrestigePanel();
+  refreshPerkTree();
   checkMilestones();
 })();
 </script>
